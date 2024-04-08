@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class Controller {
 
     @PostMapping("/api/img/send")
-    @JsonIgnore
     public ResponseEntity<String> send(@RequestParam("file") MultipartFile multipartFile) throws IOException {
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
