@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ApiController {
 
 
-    @PostMapping("/api/img/send")
+    @PostMapping("/api/face-recognition")
     public ResponseEntity<String> send(@RequestParam("file") MultipartFile multipartFile) throws IOException {
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
@@ -32,7 +32,7 @@ public class ApiController {
         // HTTP 요청 엔티티 생성
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-        String url = "http://127.0.0.1:8000/api/img";
+        String url = "http://127.0.0.1:8000/api/face-recognition";
 
         // REST API 요청 보내기
         RestTemplate restTemplate = new RestTemplate();
