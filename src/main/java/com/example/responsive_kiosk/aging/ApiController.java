@@ -1,4 +1,4 @@
-package com.example.responsive_kiosk;
+package com.example.responsive_kiosk.aging;
 
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ApiController {
 
 
+    //받아온 나이 db에 저장 후 주문 종료 시 폐기 or 세션이나 토큰 발급 후 주문 종료시 폐기
     @PostMapping("/api/face-recognition")
     public ResponseEntity<String> send(@RequestParam("file") MultipartFile multipartFile) throws IOException {
 
@@ -38,6 +39,7 @@ public class ApiController {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
 
+        responseEntity.getBody();
         return responseEntity;
     }
 }
