@@ -1,5 +1,6 @@
 package com.example.responsive_kiosk.order.entity;
 
+import com.example.responsive_kiosk.order.dto.MenuUpdateRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,5 +41,12 @@ public class Menu {
         this.name = name;
         this.price= price;
         this.category = category;
+    }
+
+    public void update(MenuUpdateRequestDto requestDto) {
+        this.image = requestDto.getImage();
+        this.name = requestDto.getName();
+        this.price = requestDto.getPrice();
+        this.category = requestDto.getCategory();
     }
 }
