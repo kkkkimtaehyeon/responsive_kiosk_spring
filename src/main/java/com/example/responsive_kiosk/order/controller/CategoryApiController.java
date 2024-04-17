@@ -1,10 +1,16 @@
 package com.example.responsive_kiosk.order.controller;
 
 import com.example.responsive_kiosk.order.dto.CategorySaveRequestDto;
+import com.example.responsive_kiosk.order.entity.Category;
 import com.example.responsive_kiosk.order.service.CategoryService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -15,6 +21,16 @@ public class CategoryApiController {
     @PostMapping("/api/categories")
     public ResponseEntity<Long> saveCategory(CategorySaveRequestDto requestDto) {
         return categoryService.save(requestDto);
+    }
+
+    @GetMapping("/api/categories")
+    public List<Category> getAllCategories() {
+        return categoryService.getAll();
+    }
+
+    @PutMapping("/api/categories/{id}")
+    public void updateCategory(@PathVariable("id") Long id, @RequestParam String name) {
+        categoryService.update(id, name);
     }
 
 

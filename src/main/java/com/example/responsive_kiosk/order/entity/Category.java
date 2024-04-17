@@ -27,4 +27,8 @@ public class Category {
     public Category(String name) {
         this.name = name;
     }
+
+    public void update(String name) {
+        this.name = name;
+    }
 }
