@@ -8,6 +8,6 @@ public class TempController {
 
     @GetMapping("/")
     public String main() {
-        return "managing_form";
+        return "manage_form";
     }
 }

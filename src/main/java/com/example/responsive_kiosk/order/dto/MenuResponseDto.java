@@ -8,17 +8,19 @@ import lombok.Data;
 @Data
 public class MenuResponseDto {
 
+    Long id;
     String image;
     String name;
     String price;
-    Category category;
+    String category;
 
     @Builder
     public MenuResponseDto(Menu menu) {
+        this.id = menu.getId();
         this.image = menu.getImage();
         this.name = menu.getName();
         this.price = menu.getPrice();
-        this.category = menu.getCategory();
+        this.category = menu.getCategory().getName();
     }
 
 }
