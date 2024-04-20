@@ -44,8 +44,9 @@ public class MenuApiController {
     }
 
     @PutMapping("/api/menus/{id}")
-    public ResponseEntity<Long> updateMenu(@PathVariable("id") Long id, MenuUpdateRequestDto requestDto) {
-        return menuService.update(id, requestDto);
+    public void updateMenu(@PathVariable("id") Long id, MenuUpdateRequestDto requestDto, HttpServletResponse response) throws IOException {
+        menuService.update(id, requestDto);
+        response.sendRedirect("/manage/product");
     }
 
     @DeleteMapping("/api/menus/{id}")
