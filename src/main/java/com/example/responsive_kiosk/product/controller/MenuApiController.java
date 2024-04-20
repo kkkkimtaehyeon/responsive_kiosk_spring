@@ -1,9 +1,11 @@
-package com.example.responsive_kiosk.order.controller;
+package com.example.responsive_kiosk.product.controller;
 
-import com.example.responsive_kiosk.order.dto.MenuResponseDto;
-import com.example.responsive_kiosk.order.dto.MenuSaveRequestDto;
-import com.example.responsive_kiosk.order.dto.MenuUpdateRequestDto;
-import com.example.responsive_kiosk.order.service.MenuService;
+import com.example.responsive_kiosk.product.dto.MenuResponseDto;
+import com.example.responsive_kiosk.product.dto.MenuSaveRequestDto;
+import com.example.responsive_kiosk.product.dto.MenuUpdateRequestDto;
+import com.example.responsive_kiosk.product.service.MenuService;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class MenuApiController {
     private final MenuService menuService;
 
-    @PostMapping("/api/menus")
+    /** 메뉴 생성 */
+    /*@PostMapping("/api/menus")
     public ResponseEntity<Long> saveMenu(MenuSaveRequestDto requestDto) {
         return menuService.save(requestDto);
+    }*/
+
+    @PostMapping("/api/menus")
+    public void saveMenu(MenuSaveRequestDto requestDto, HttpServletResponse response) throws IOException {
+        menuService.save(requestDto);
+        response.sendRedirect("/manage/product");
     }
 
     @GetMapping("/api/menus")

@@ -1,6 +1,6 @@
-package com.example.responsive_kiosk.order.dto;
+package com.example.responsive_kiosk.product.dto;
 
-import com.example.responsive_kiosk.order.entity.Category;
+import com.example.responsive_kiosk.product.entity.Category;
 import lombok.Data;
 
 @Data

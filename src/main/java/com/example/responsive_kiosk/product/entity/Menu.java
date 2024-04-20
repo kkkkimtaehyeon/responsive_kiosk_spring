@@ -1,6 +1,6 @@
-package com.example.responsive_kiosk.order.entity;
+package com.example.responsive_kiosk.product.entity;
 
-import com.example.responsive_kiosk.order.dto.MenuUpdateRequestDto;
+import com.example.responsive_kiosk.product.dto.MenuUpdateRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,34 +19,40 @@ public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "menu_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "menu_image", nullable = false)
-    private String image;
+    @Column(name = "image_path", nullable = true)
+    private String imagePath;
 
-    @Column(name = "menu_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "menu_price", nullable = false)
+    @Column(name = "price", nullable = false)
     private String price;
+
+    @Column(name = "description", nullable = false)
+    private String description;
+
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "category_id")
     private Category category;
 
     @Builder
-    public Menu(String image, String name, String price, Category category) {
-        this.image = image;
+    public Menu(String imagePath, String name, String price, String description, Category category) {
+        this.imagePath = imagePath;
         this.name = name;
         this.price= price;
+        this.description = description;
         this.category = category;
     }
 
     public void update(MenuUpdateRequestDto requestDto) {
-        this.image = requestDto.getImage();
+        this.imagePath = requestDto.getImagePath();
         this.name = requestDto.getName();
         this.price = requestDto.getPrice();
+        this.description = requestDto.getDescription();
         this.category = requestDto.getCategory();
     }
 }

@@ -19,7 +19,7 @@
                     <button type="submit" class="btn btn-primary mb-3">검색</button>
                 </div>
                 <div class="col-auto">
-                    <button type="button" class="btn btn-primary mb-3">상품 추가</button>
+                    <a href="product/create" class="btn btn-primary mb-3" id="createBtn">상품 추가</a>
                 </div>
             </div>
             <div class="row">
@@ -54,8 +54,8 @@
                     <div class="card-header d-flex justify-content-between">
                         <h4>상품 정보</h4>
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-danger">삭제</button>
-                            <button class="btn btn-primary">수정</button>
+                            <button class="btn btn-danger" id="deleteBtn" >삭제</button>
+                            <button class="btn btn-primary" id="editBtn">수정</button>
                         </div>
 
                     </div>
@@ -63,7 +63,7 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col-5">
-                                    <img src="/static/img/coffee.jpg" class="img-thumbnail" alt="...">
+                                    <img id="detail-image" class="img-thumbnail" alt="...">
                                 </div>
                                 <div class="col-auto">
                                     <div class="row-auto">
@@ -95,228 +95,8 @@
                     </div>
                 </div>
 
-                <!-- 상품 수정/생성
-                <div class="col m-3 card" id="product-create">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4>상품 추가</h4>
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-danger">취소</button>
-                            <button class="btn btn-primary">저장</button>
-                        </div>
-
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-5">
-                                <img src="/static/img/coffee.jpg" class="img-thumbnail" alt="...">
-                            </div>
-                            <div class="col-auto">
-                                <div class="row-auto">
-                                    <label for="category">카테고리</label>
-                                    <select class="category">
-                                        <option>커피</option>
-                                        <option>논커피</option>
-                                        <option>주스</option>
-                                        <option>차</option>
-                                        <option>디저트</option>
-                                    </select>
-                                </div>
-                                <div class="row-auto">
-                                    <label for="name">이름</label>
-                                    <input class="name form-control">
-                                </div>
-                                <div class="row-auto">
-                                    <label for="price">가격</label>
-                                    <input class="form-control price">
-                                </div>
-
-                            </div>
-                            <div class="col-auto">
-                                <div class="row-auto">
-                                    <label for="options">옵션</label>
-                                    <div class="options">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                            <label class="form-check-label" for="inlineCheckbox1">핫</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                            <label class="form-check-label" for="inlineCheckbox2">아이스</label>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row-auto">
-                                    <label for="describe">설명</label>
-                                    <textarea class="form-control describe"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
-
 
             </div>
-
-
-            <!--<div class="row m-3 card" id="product-info">
-                <div class="card-header d-flex justify-content-between">
-                    <h4>상품 정보</h4>
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-danger">삭제</button>
-                        <button class="btn btn-primary">수정</button>
-                    </div>
-
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-3">
-                            &lt;!&ndash; 사진 들어갈 자리&ndash;&gt;
-                            <img src="/static/img/coffee.jpg" class="img-thumbnail" alt="...">
-                        </div>
-                        <div class="col-6">
-                            <div class="row-auto">
-                                <label>카테고리</label>
-                                <span class="category">카테고리</span>
-                            </div>
-                            <div class="row-auto">
-                                <label>이름</label>
-                                <span class="name">이름</span>
-                            </div>
-                            <div class="row-auto">
-                                <label>가격</label>
-                                <span class="price">가격</span>
-                            </div>
-                            <div class="row-auto">
-                                <label>옵션</label>
-                                <span class="options">옵션</span>
-                            </div>
-                            <div class="row-auto">
-                                <label>설명</label>
-                                <span class="description">설명</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row m-3 card" id="product-create">
-                <div class="card-header d-flex justify-content-between">
-                    <h4>상품 추가</h4>
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-danger">취소</button>
-                        <button class="btn btn-primary">저장</button>
-                    </div>
-
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-3">
-                            &lt;!&ndash; 사진 들어갈 자리&ndash;&gt;
-                            <img src="/static/img/coffee.jpg" class="img-thumbnail" alt="...">
-                        </div>
-                        <div class="col-auto">
-                            <div class="row-auto">
-                                <label for="category">카테고리</label>
-                                <select class="category">
-                                    <option>커피</option>
-                                    <option>논커피</option>
-                                    <option>주스</option>
-                                    <option>차</option>
-                                    <option>디저트</option>
-                                </select>
-                            </div>
-                            <div class="row-auto">
-                                <label for="name">이름</label>
-                                <input class="name form-control">
-                            </div>
-                            <div class="row-auto">
-                                <label for="price">가격</label>
-                                <input class="form-control price">
-                            </div>
-
-                        </div>
-                        <div class="col-auto">
-                            <div class="row-auto">
-                                <label for="options">옵션</label>
-                                <div class="options">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                        <label class="form-check-label" for="inlineCheckbox1">핫</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                        <label class="form-check-label" for="inlineCheckbox2">아이스</label>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row-auto">
-                                <label for="describe">설명</label>
-                                <textarea class="form-control describe"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row m-3 card" id="product-edit">
-                <div class="card-header d-flex justify-content-between">
-                    <h4>상품 수정</h4>
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-danger">취소</button>
-                        <button class="btn btn-primary">저장</button>
-                    </div>
-
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-3">
-                            &lt;!&ndash; 사진 들어갈 자리&ndash;&gt;
-                            <img src="/static/img/coffee.jpg" class="img-thumbnail" alt="...">
-                        </div>
-                        <div class="col-auto">
-                            <div class="row-auto">
-                                <label for="category">카테고리</label>
-                                <select class="category">
-                                    <option>커피</option>
-                                    <option>논커피</option>
-                                    <option>주스</option>
-                                    <option>차</option>
-                                    <option>디저트</option>
-                                </select>
-                            </div>
-                            <div class="row-auto">
-                                <label for="name">이름</label>
-                                <input class="name form-control">
-                            </div>
-                            <div class="row-auto">
-                                <label for="price">가격</label>
-                                <input class="form-control price">
-                            </div>
-
-                        </div>
-                        <div class="col-auto">
-                            <div class="row-auto">
-                                <label for="options">옵션</label>
-                                <div class="options">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                        <label class="form-check-label" for="inlineCheckbox1">핫</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                        <label class="form-check-label" for="inlineCheckbox2">아이스</label>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row-auto">
-                                <label for="describe">설명</label>
-                                <textarea class="form-control describe"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
         </div>
     </div>
 
@@ -324,21 +104,60 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
 
+        const editBtn = document.getElementById('editBtn');
+        const createBtn = document.getElementById('createBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
+        const productCreate = document.getElementById('product-create');
+        const productEdit = document.getElementById('product-edit');
+        const productInfo = document.getElementById('product-info');
+
         function productDetail(id) {
-            const productInfo = document.getElementById('product-info');
-            productInfo.classList.remove('visually-hidden');
+            if(productInfo.classList.contains('visually-hidden')) {
+                productInfo.classList.remove('visually-hidden');
+            }
+            else {
+                productInfo.classList.add('visually-hidden');
+            }
+
+            getProductDetail(id);
+
+            deleteBtn.addEventListener('click', () => {
+                deleteProduct(id);
+            })
+
+        }
+
+        function getProductDetail(id) {
             axios.get(`/api/menus/${id}`)
                 .then(response => {
-                    console.log(response);
+                    console.log("조회 성공" + response);
                     const menu = response.data;
-                    document.getElementById('detail-category').innerText=menu.category;
-                    document.getElementById('detail-name').innerText=menu.name;
-                    document.getElementById('detail-price').innerText=menu.price;
+                    document.getElementById('detail-category').innerText = menu.category;
+                    document.getElementById('detail-name').innerText = menu.name;
+                    document.getElementById('detail-price').innerText = menu.price;
+                    document.getElementById('detail-image').src = menu.imagePath;
+                    editBtn.addEventListener('click', () => {
+                        window.location.href=`product/edit/${menu.id}`;
+                    });
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log("조회 실패" + error);
                 })
         }
+        function deleteProduct(id) {
+            axios.delete(`/api/menus/${id}`)
+                .then(response => {
+                    console.log('삭제 성공');
+                    location.reload();
+                    alert('삭제되었습니다.')
+
+                })
+                .catch(error => {
+                    console.log('삭제 실패');
+                })
+        }
+
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

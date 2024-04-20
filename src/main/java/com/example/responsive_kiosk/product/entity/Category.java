@@ -1,4 +1,4 @@
-package com.example.responsive_kiosk.order.entity;
+package com.example.responsive_kiosk.product.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

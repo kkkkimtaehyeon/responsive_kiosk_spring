@@ -1,8 +1,8 @@
-package com.example.responsive_kiosk.order.controller;
+package com.example.responsive_kiosk.product.controller;
 
-import com.example.responsive_kiosk.order.dto.CategorySaveRequestDto;
-import com.example.responsive_kiosk.order.entity.Category;
-import com.example.responsive_kiosk.order.service.CategoryService;
+import com.example.responsive_kiosk.product.dto.CategorySaveRequestDto;
+import com.example.responsive_kiosk.product.entity.Category;
+import com.example.responsive_kiosk.product.service.CategoryService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

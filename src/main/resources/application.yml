@@ -17,3 +17,8 @@ spring:
     properties:
       hibernate:
         show_sql: true
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true

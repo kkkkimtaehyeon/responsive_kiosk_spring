@@ -1,7 +1,6 @@
-package com.example.responsive_kiosk.order.dto;
+package com.example.responsive_kiosk.product.dto;
 
-import com.example.responsive_kiosk.order.entity.Category;
-import com.example.responsive_kiosk.order.entity.Menu;
+import com.example.responsive_kiosk.product.entity.Menu;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,17 +8,19 @@ import lombok.Data;
 public class MenuResponseDto {
 
     Long id;
-    String image;
+    String imagePath;
     String name;
     String price;
+    String description;
     String category;
 
     @Builder
     public MenuResponseDto(Menu menu) {
         this.id = menu.getId();
-        this.image = menu.getImage();
+        this.imagePath = menu.getImagePath();
         this.name = menu.getName();
         this.price = menu.getPrice();
+        this.description = menu.getDescription();
         this.category = menu.getCategory().getName();
     }
 
