@@ -88,7 +88,7 @@
                             <div class="col-6">
                                 <div class="row-auto">
                                     <label>설명</label>
-                                    <span class="description">설명</span>
+                                    <span id="detail-description">설명</span>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                     document.getElementById('detail-category').innerText = menu.category;
                     document.getElementById('detail-name').innerText = menu.name;
                     document.getElementById('detail-price').innerText = menu.price;
-                    document.getElementById('detail-image').src = menu.imagePath;
+                    document.getElementById('detail-description').innerText = menu.description;
                     editBtn.addEventListener('click', () => {
                         window.location.href=`product/edit/${menu.id}`;
                     });

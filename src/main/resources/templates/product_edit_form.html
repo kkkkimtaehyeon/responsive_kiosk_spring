@@ -12,7 +12,7 @@
     <h1>상품 수정</h1>
 
     <!-- 상품 수정 -->
-    <form class="col m-3 card" id="product-editForm" th:action="@{/api/menus/{id}(id=${menu.body.id})}" th:method="put">
+    <form class="col m-3 card" id="product-editForm" ><!--th:action="@{/api/menus/{id}(id=${menu.body.id})}" th:method="put"-->
         <div class="card-header d-flex justify-content-between">
             <h4>상품 수정</h4>
             <div class="d-flex justify-content-end">
@@ -29,7 +29,7 @@
                 <div class="col-6">
                     <div class="row-auto">
                         <label>카테고리</label>
-                        <select id="edit-category" >
+                        <select id="edit-category" th:value="${menu.body.category}" name="category">
                             <option value="1">커피</option>
                             <option value="2">논커피</option>
                             <option value="3">주스</option>
@@ -39,11 +39,11 @@
                     </div>
                     <div class="row-auto">
                         <label>이름</label>
-                        <input class="form-control" id="edit-name" th:field="*{body.name}" name="name">
+                        <input class="form-control" id="edit-name" th:value="${menu.body.name}" name="name">
                     </div>
                     <div class="row-auto">
                         <label>가격</label>
-                        <input class="form-control" id="edit-price" th:field="*{body.price}" name="price">
+                        <input class="form-control" id="edit-price" th:value="${menu.body.price}" name="price">
                     </div>
                     <div class="row-auto">
                         <label>옵션</label>
@@ -62,7 +62,7 @@
 
                         <div class="col">
                             <label>설명</label>
-                            <textarea class="form-control" id="edit-description" th:field="*{body.description}" name="description"></textarea>
+                            <textarea class="form-control" id="edit-description" th:text="${menu.body.description}" name="description"></textarea>
                         </div>
                     </div>
 
@@ -78,11 +78,11 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script th:inline="javascript">
 
-    /*const editBtn = document.getElementById('edit-submitBtn');
+    const editBtn = document.getElementById('edit-submitBtn');
     editBtn.addEventListener('click', () => {
         const id = [[${menu.body.id}]];
         update(id);
-    })*/
+    })
 
     function update(id) {
         const formdata = new FormData(document.getElementById('product-editForm'));
