@@ -3,7 +3,6 @@ package com.example.responsive_kiosk.product.service;
 import com.example.responsive_kiosk.product.dto.MenuResponseDto;
 import com.example.responsive_kiosk.product.dto.MenuSaveRequestDto;
 import com.example.responsive_kiosk.product.dto.MenuUpdateRequestDto;
-import com.example.responsive_kiosk.product.entity.Category;
 import com.example.responsive_kiosk.product.entity.Menu;
 import com.example.responsive_kiosk.product.repository.CategoryRepository;
 import com.example.responsive_kiosk.product.repository.MenuRepository;
@@ -52,6 +51,15 @@ public class MenuService {
     public List<MenuResponseDto> getAll() {
         List<MenuResponseDto> responseDtoList = new ArrayList<>();
         List<Menu> menus = menuRepository.findAll(Sort.by(Direction.ASC, "Category"));
+        for(Menu menu: menus) {
+            responseDtoList.add(MenuResponseDto.builder().menu(menu).build());
+        }
+        return responseDtoList;
+    }
+
+    public List<MenuResponseDto> getAllByKeyword(String keyword) {
+        List<MenuResponseDto> responseDtoList = new ArrayList<>();
+        List<Menu> menus = menuRepository.findByNameContaining(keyword, Sort.by(Direction.ASC, "Category"));
         for(Menu menu: menus) {
             responseDtoList.add(MenuResponseDto.builder().menu(menu).build());
         }

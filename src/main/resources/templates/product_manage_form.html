@@ -14,11 +14,15 @@
         <div class="col">
             <div class="row m-3">
                 <div class="col-auto">
-                    <input type="text" class="form-control" id="inputPassword2" placeholder="검색어를 입력해주세요.">
+                    <input type="text" class="form-control" id="search-input" name="keyword" placeholder="검색어를 입력해주세요.">
                 </div>
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-primary mb-3">검색</button>
+                    <button class="btn btn-primary mb-3" id="searchBtn">검색</button>
                 </div>
+                <div class="col-auto">
+                    <a href="/manage/product" class="btn btn-primary mb-3" >초기화</a>
+                </div>
+
                 <div class="col-auto">
                     <a href="product/create" class="btn btn-primary mb-3" id="createBtn">상품 추가</a>
                 </div>
@@ -39,13 +43,14 @@
                                     <th scope="col">이름</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr th:each="menu:${menus}">
+                                <tbody id="table-body">
+                                <!--<tr th:each="menu:${menus}">
                                     <td th:text="${menu.category}">category</td>
                                     <td th:text="${menu.name}" th:menu_id="${menu.id}" th:onclick="productDetail(this.getAttribute('menu_id'))">name</td>
-                                </tr>
+                                </tr>-->
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>
@@ -111,6 +116,53 @@
         const productCreate = document.getElementById('product-create');
         const productEdit = document.getElementById('product-edit');
         const productInfo = document.getElementById('product-info');
+        const searchBtn = document.getElementById('searchBtn');
+
+
+        window.onload = () => {
+            getProducts();
+        }
+
+        function getProducts() {
+            axios.get('/api/menus')
+                .then(response => {
+                    console.log('메뉴 불러오기 성공'+response);
+                    const container = document.getElementById('table-body');
+                    let tmp = '';
+                    response.data.forEach(menu => {
+                        tmp += '<tr>\n' +
+                            `<td>${menu.category}</td>\n`+
+                            `<td onclick="productDetail(${menu.id})">${menu.name}</td>\n` +
+                            '</tr>'
+                    })
+                    container.innerHTML=tmp;
+                })
+                .catch(error => {
+                    console.log('메뉴 불러오기 실패');
+                })
+        }
+
+        searchBtn.addEventListener('click', () => {
+            const keyword = document.getElementById('search-input').value;
+            axios.get('/api/menus', { params: { keyword: keyword } })
+                .then(response => {
+                    console.log('메뉴 불러오기 성공' + response);
+                    const container = document.getElementById('table-body');
+                    let tmp = '';
+                    response.data.forEach(menu => {
+                        tmp += '<tr>\n' +
+                            `<td>${menu.category}</td>\n` +
+                            `<td onclick="productDetail(${menu.id})">${menu.name}</td>\n` +
+                            '</tr>'
+                    })
+                    container.innerHTML = tmp;
+                })
+                .catch(error => {
+                    console.log('메뉴 불러오기 실패');
+                })
+        })
+
+
 
         function productDetail(id) {
             if(productInfo.classList.contains('visually-hidden')) {
@@ -127,6 +179,7 @@
             })
 
         }
+
 
         function getProductDetail(id) {
             axios.get(`/api/menus/${id}`)
