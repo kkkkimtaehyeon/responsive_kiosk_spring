@@ -9,10 +9,83 @@
 
 </head>
 <body>
-<div class="row">
-    <div class="col-12">
-        <div class="overflow-auto" style="height: 300px">
+<div class="container">
+    <h1><a href="/manage"><</a></h1>
+    <div class="col">
+        <div class="row">
+            <!-- 주문 목록 -->
+            <div class="col m-3 card">
+                <div class="card-header">
+                    <h5>주문 목록</h5>
+                </div>
+                <div class="card-body">
+                    <div class="overflow-auto" id="order-list" style="height: 450px">
+                        <!-- 주문 테이블 들어갈 자리-->
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">주문 번호</th>
+                                <th scope="col">주문자 정보</th>
+                                <th scope="col">메뉴</th>
+                                <th scope="col">주문 시간</th>
+
+                            </tr>
+                            </thead>
+                            <tbody id="table-body">
+                            <!--<tr th:each="menu:${menus}">
+                                <td th:text="${menu.category}">category</td>
+                                <td th:text="${menu.name}" th:menu_id="${menu.id}" th:onclick="productDetail(this.getAttribute('menu_id'))">name</td>
+                            </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card m-3 col">
+                <div class="card-header">
+                    <div>
+                        <label for="order-number">주문 번호</label>
+                        <span id="order-number">12</span>
+                    </div>
+                    <div>
+                        <label for="order-date">주문시간</label>
+                        <span id="order-date">2023-11-13</span>
+                    </div>
+                    <div>
+                        <label for="order-user">주문자 정보</label>
+                        <span id="order-user">25</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="overflow-auto" id="detail-order" style="height: 450px">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">메뉴</th>
+                                <th scope="col">수량</th>
+                                <th scope="col">가격</th>
+                                <th scope="col">옵션</th>
+
+                            </tr>
+                            </thead>
+                            <tbody id="detail-order-table">
+                            <tr>
+                                <td>아메리카노</td>
+                                <td>2</td>
+                                <td>3000</td>
+                                <td>HOT</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <label for="total-price">총 금액</label>
+                    <span id="total-price">45000</span>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
 
