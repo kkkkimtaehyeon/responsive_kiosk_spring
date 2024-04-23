@@ -10,7 +10,7 @@ public class MenuResponseDto {
     Long id;
     String imagePath;
     String name;
-    String price;
+    Double price;
     String description;
     String category;
 

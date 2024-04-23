@@ -19,7 +19,7 @@ public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "menu_id")
     private Long id;
 
     @Column(name = "image_path", nullable = true)
@@ -29,7 +29,7 @@ public class Menu {
     private String name;
 
     @Column(name = "price", nullable = false)
-    private String price;
+    private Double price;
 
     @Column(name = "description", nullable = false)
     private String description;
@@ -40,7 +40,7 @@ public class Menu {
     private Category category;
 
     @Builder
-    public Menu(String imagePath, String name, String price, String description, Category category) {
+    public Menu(String imagePath, String name, Double price, String description, Category category) {
         this.imagePath = imagePath;
         this.name = name;
         this.price= price;

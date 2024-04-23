@@ -12,12 +12,12 @@ public class MenuSaveRequestDto {
     MultipartFile imageFile;
     String imagePath;
     String name;
-    String price;
+    Double price;
     String description;
     Category category;
 
     @Builder
-    public MenuSaveRequestDto(MultipartFile imageFile, String imagePath, String name, String price, Category category) {
+    public MenuSaveRequestDto(MultipartFile imageFile, String imagePath, String name, double price, Category category) {
         this.imageFile = imageFile;
         this.imagePath = imagePath;
         this.name = name;

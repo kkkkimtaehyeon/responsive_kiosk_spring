@@ -8,7 +8,7 @@ public class MenuUpdateRequestDto {
 
     String imagePath;
     String name;
-    String price;
+    Double price;
     String description;
     Category category;
 }
