@@ -22,7 +22,7 @@ public class ManageController {
         return mav;
     }
 
-    @GetMapping("/manage/product")
+    @GetMapping("/manage/products")
     public ModelAndView productManageForm(@RequestParam(required = false) String keyword) {
         ModelAndView mav = new ModelAndView();
         if (keyword != null) {
@@ -34,9 +34,8 @@ public class ManageController {
         return mav;
     }
 
-    @GetMapping("/manage/order")
-    public String orderManageForm(Model model) {
-
+    @GetMapping("/manage/orders")
+    public String orderManageForm() {
         return "order_manage_form";
     }
 

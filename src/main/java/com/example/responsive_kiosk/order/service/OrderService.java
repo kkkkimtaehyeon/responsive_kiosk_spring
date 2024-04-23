@@ -2,6 +2,7 @@ package com.example.responsive_kiosk.order.service;
 
 import com.example.responsive_kiosk.order.dto.OrderDetailRequestDto;
 import com.example.responsive_kiosk.order.dto.OrderRequestDto;
+import com.example.responsive_kiosk.order.dto.OrderResponseDto;
 import com.example.responsive_kiosk.order.entity.Orders;
 import com.example.responsive_kiosk.order.entity.OrderDetails;
 import com.example.responsive_kiosk.order.repository.OrderDetailRepository;
@@ -9,6 +10,8 @@ import com.example.responsive_kiosk.order.repository.OrderRepository;
 import com.example.responsive_kiosk.product.entity.Menu;
 import com.example.responsive_kiosk.product.repository.MenuRepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -39,5 +42,15 @@ public class OrderService {
         }
 
         return ResponseEntity.ok(orders.getId());
+    }
+
+    public ResponseEntity<List<OrderResponseDto>> getAll() {
+        List<Orders> ordersList = orderRepository.findAll();
+        List<OrderResponseDto> orderResponseDtoList = new ArrayList<>();
+
+        for(Orders order : ordersList) {
+            orderResponseDtoList.add(OrderResponseDto.builder().orders(order).build());
+        }
+        return ResponseEntity.ok(orderResponseDtoList);
     }
 }

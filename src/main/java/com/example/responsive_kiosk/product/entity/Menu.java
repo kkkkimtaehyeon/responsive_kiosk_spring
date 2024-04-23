@@ -22,10 +22,11 @@ public class Menu {
     @Column(name = "menu_id")
     private Long id;
 
+    //이미지 서버 구축 시 false로 변경
     @Column(name = "image_path", nullable = true)
     private String imagePath;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "price", nullable = false)
@@ -34,10 +35,13 @@ public class Menu {
     @Column(name = "description", nullable = false)
     private String description;
 
-
     @ManyToOne
     @JoinColumn(referencedColumnName = "category_id")
     private Category category;
+
+    //메뉴 활성화/비활성화
+    /*@Column(name = "available", columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean available;*/
 
     @Builder
     public Menu(String imagePath, String name, Double price, String description, Category category) {
