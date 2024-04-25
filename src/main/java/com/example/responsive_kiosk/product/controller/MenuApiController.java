@@ -31,7 +31,7 @@ public class MenuApiController {
     @PostMapping("/api/menus")
     public void saveMenu(MenuSaveRequestDto requestDto, HttpServletResponse response) throws IOException {
         menuService.save(requestDto);
-        response.sendRedirect("/manage/product");
+        response.sendRedirect("/manage/products");
     }
 
     @GetMapping("/api/menus")
@@ -50,7 +50,7 @@ public class MenuApiController {
     @PutMapping("/api/menus/{id}")
     public void updateMenu(@PathVariable("id") Long id, MenuUpdateRequestDto requestDto, HttpServletResponse response) throws IOException {
         menuService.update(id, requestDto);
-        response.sendRedirect("/manage/product");
+        response.sendRedirect("/manage/products");
     }
 
     @DeleteMapping("/api/menus/{id}")

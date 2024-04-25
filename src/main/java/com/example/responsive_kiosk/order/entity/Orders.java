@@ -47,5 +47,4 @@ public class Orders extends BaseTimeEntity {
         this.orderDetails.add(orderDetails);
         orderDetails.setOrders(this);
     }
-
 }

@@ -3,6 +3,7 @@ package com.example.responsive_kiosk.order.entity;
 import com.example.responsive_kiosk.product.entity.Menu;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,7 +29,7 @@ public class OrderDetails {
     @JoinColumn(referencedColumnName = "menu_id")
     private Menu menu;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action=OnDeleteAction.CASCADE)
     @JoinColumn(referencedColumnName = "orders_id")
     private Orders orders;

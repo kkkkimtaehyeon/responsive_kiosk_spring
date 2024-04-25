@@ -1,10 +1,11 @@
 package com.example.responsive_kiosk.order.service;
 
 import com.example.responsive_kiosk.order.dto.OrderDetailRequestDto;
+import com.example.responsive_kiosk.order.dto.OrderDetailResponseDto;
 import com.example.responsive_kiosk.order.dto.OrderRequestDto;
 import com.example.responsive_kiosk.order.dto.OrderResponseDto;
-import com.example.responsive_kiosk.order.entity.Orders;
 import com.example.responsive_kiosk.order.entity.OrderDetails;
+import com.example.responsive_kiosk.order.entity.Orders;
 import com.example.responsive_kiosk.order.repository.OrderDetailRepository;
 import com.example.responsive_kiosk.order.repository.OrderRepository;
 import com.example.responsive_kiosk.product.entity.Menu;
@@ -53,4 +54,14 @@ public class OrderService {
         }
         return ResponseEntity.ok(orderResponseDtoList);
     }
+
+    @Transactional
+    public ResponseEntity<OrderDetailResponseDto> getOrderDetail(Long id) {
+        Orders orders = orderRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        List<OrderDetails> orderDetails = orders.getOrderDetails();
+        OrderDetailResponseDto orderDetailResponseDto = new OrderDetailResponseDto(orders, orderDetails);
+        return ResponseEntity.ok(orderDetailResponseDto);
+    }
+
+
 }
