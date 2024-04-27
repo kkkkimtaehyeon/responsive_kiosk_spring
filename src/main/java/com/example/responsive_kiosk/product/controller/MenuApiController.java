@@ -1,5 +1,6 @@
 package com.example.responsive_kiosk.product.controller;
 
+import com.example.responsive_kiosk.config.service.S3UploadService;
 import com.example.responsive_kiosk.product.dto.MenuResponseDto;
 import com.example.responsive_kiosk.product.dto.MenuSaveRequestDto;
 import com.example.responsive_kiosk.product.dto.MenuUpdateRequestDto;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @RestController
 public class MenuApiController {
     private final MenuService menuService;
+    private final S3UploadService s3UploadService;
 
     /** 메뉴 생성 */
     /*@PostMapping("/api/menus")
@@ -32,6 +35,11 @@ public class MenuApiController {
     public void saveMenu(MenuSaveRequestDto requestDto, HttpServletResponse response) throws IOException {
         menuService.save(requestDto);
         response.sendRedirect("/manage/products");
+    }
+
+    @PostMapping("/api/upload")
+    public String upload(@RequestParam("img") MultipartFile file) throws IOException {
+        return s3UploadService.saveFile(file);
     }
 
     @GetMapping("/api/menus")

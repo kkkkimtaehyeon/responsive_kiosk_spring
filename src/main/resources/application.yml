@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: responsive_kiosk
+  profiles:
+    include: s3
   datasource:
     url: jdbc:mariadb://localhost:3306/responsive_kiosk
     driver-class-name: org.mariadb.jdbc.Driver
@@ -22,3 +24,6 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+
+
+

@@ -1,15 +1,14 @@
 package com.example.responsive_kiosk.product.service;
 
+import com.example.responsive_kiosk.config.service.S3UploadService;
 import com.example.responsive_kiosk.product.dto.MenuResponseDto;
 import com.example.responsive_kiosk.product.dto.MenuSaveRequestDto;
 import com.example.responsive_kiosk.product.dto.MenuUpdateRequestDto;
 import com.example.responsive_kiosk.product.entity.Menu;
 import com.example.responsive_kiosk.product.repository.CategoryRepository;
 import com.example.responsive_kiosk.product.repository.MenuRepository;
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,16 +27,34 @@ import org.springframework.web.multipart.MultipartFile;
 public class MenuService {
     private final MenuRepository menuRepository;
     private final CategoryRepository categoryRepository;
-
-    private final static String UPLOAD_PATH = "src/main/resources/static/img";
-    private final static String FILE_PATH = "/img/";
+    private final S3UploadService s3UploadService;
     public ResponseEntity<Long> save(MenuSaveRequestDto requestDto) throws IOException {
         //requestDto.setImagePath(saveImage(requestDto.getImageFile()));
+
+        try {
+            String imagePath = s3UploadService.saveFile(requestDto.getImageFile());
+            requestDto.setImagePath(imagePath);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return ResponseEntity.ok(menuRepository.save(requestDto.toEntity()).getId());
     }
 
-    public String saveImage(MultipartFile file) throws IOException {
-        try {
+    /*public String saveImage(MultipartFile file) throws IOException {
+
+        if(!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                String uploadDir = "/images";
+                String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+                File uploadfile = new File(uploadDir, fileName);
+                file.transferTo(uploadfile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        *//*try {
             String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
             Path uploadFilePath = Paths.get(UPLOAD_PATH, fileName);
             Files.copy(file.getInputStream(), uploadFilePath);
@@ -46,8 +63,8 @@ public class MenuService {
         } catch (IOException e) {
             e.printStackTrace();
             return "이미지 업로드에 실패했습니다.";
-        }
-    }
+        }*//*
+    }*/
     public List<MenuResponseDto> getAll() {
         List<MenuResponseDto> responseDtoList = new ArrayList<>();
         List<Menu> menus = menuRepository.findAll(Sort.by(Direction.ASC, "Category"));

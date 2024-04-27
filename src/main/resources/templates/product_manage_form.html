@@ -190,6 +190,7 @@
                     document.getElementById('detail-name').innerText = menu.name;
                     document.getElementById('detail-price').innerText = menu.price;
                     document.getElementById('detail-description').innerText = menu.description;
+                    document.getElementById('detail-image').src = menu.imagePath;
                     editBtn.addEventListener('click', () => {
                         window.location.href=`product/edit/${menu.id}`;
                     });
