@@ -1,7 +1,6 @@
 package com.example.responsive_kiosk.toFastApi;
 
 import com.example.responsive_kiosk.product.dto.MenuSaveRequestDto;
-import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

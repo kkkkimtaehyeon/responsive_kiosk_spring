@@ -18,14 +18,21 @@ public class S3UploadService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    public String saveFile(MultipartFile multipartFile) throws IOException {
-        String originalFilename = UUID.randomUUID() + "_" +multipartFile.getOriginalFilename();
+    public String saveFile(MultipartFile file) throws IOException {
+        try {
+            String originalFilename = UUID.randomUUID() + "_" +file.getOriginalFilename();
 
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentLength(multipartFile.getSize());
-        metadata.setContentType(multipartFile.getContentType());
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentLength(file.getSize());
+            metadata.setContentType(file.getContentType());
 
-        amazonS3.putObject(bucket, originalFilename, multipartFile.getInputStream(), metadata);
-        return amazonS3.getUrl(bucket, originalFilename).toString();
+            amazonS3.putObject(bucket, originalFilename, file.getInputStream(), metadata);
+            return amazonS3.getUrl(bucket, originalFilename).toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "image  upload failed";
+        }
+
+
     }
 }
