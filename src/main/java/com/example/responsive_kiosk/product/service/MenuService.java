@@ -2,6 +2,7 @@ package com.example.responsive_kiosk.product.service;
 
 import com.example.responsive_kiosk.config.service.S3UploadService;
 import com.example.responsive_kiosk.product.dto.MenuResponseDto;
+import com.example.responsive_kiosk.product.dto.MenuSaveOnGPTRequestDto;
 import com.example.responsive_kiosk.product.dto.MenuSaveRequestDto;
 import com.example.responsive_kiosk.product.dto.MenuUpdateRequestDto;
 import com.example.responsive_kiosk.product.entity.Category;
@@ -33,13 +34,24 @@ public class MenuService {
     private final S3UploadService s3UploadService;
     private final ToFastApiService toFastApiService;
 
+    @Transactional
     public ResponseEntity<Long> save(MenuSaveRequestDto requestDto) throws IOException {
         Category category = categoryRepository.findByName(requestDto.getCategoryName()).orElseThrow(EntityExistsException::new);
         String imagePath = s3UploadService.saveFile(requestDto.getImageFile());
 
-        Long savedMenuId = menuRepository.save(requestDto.toEntity(category, imagePath)).getId();
-        toFastApiService.registerMenuOnGPT(requestDto);
-
+        Menu menu = requestDto.toEntity(category, imagePath);
+        Long savedMenuId;
+        try {
+            // 트랜잭션 시작
+            savedMenuId = menuRepository.save(menu).getId();
+            //fastapi 서버에 있는 GPT에 메뉴 학습을 위해 MenuSaveOnGPTRequestDto 전달
+            toFastApiService.registerMenuOnGPT(new MenuSaveOnGPTRequestDto(menu));
+        } catch (Exception e) {
+            // 롤백
+            savedMenuId = null;
+            throw e; // 예외 다시 던지기
+        }
+        // 트랜잭션 종료 후 커밋
         return ResponseEntity.ok(savedMenuId);
     }
 
