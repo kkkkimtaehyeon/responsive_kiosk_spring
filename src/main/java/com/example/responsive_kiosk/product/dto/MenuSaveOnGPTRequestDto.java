@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class MenuSaveOnGPTRequestDto {
 
+    Long id;
     String name;
     Double price;
     String description;
@@ -15,6 +16,7 @@ public class MenuSaveOnGPTRequestDto {
 
     @Builder
     public MenuSaveOnGPTRequestDto(Menu menu) {
+        this.id = menu.getId();
         this.name = menu.getName();
         this.price = menu.getPrice();
         this.description = menu.getDescription();
