@@ -2,6 +2,7 @@ package com.example.responsive_kiosk.product.controller;
 
 import com.example.responsive_kiosk.config.service.S3UploadService;
 import com.example.responsive_kiosk.product.dto.MenuResponseDto;
+import com.example.responsive_kiosk.product.dto.MenuResponseDto2;
 import com.example.responsive_kiosk.product.dto.MenuSaveRequestDto;
 import com.example.responsive_kiosk.product.dto.MenuUpdateRequestDto;
 import com.example.responsive_kiosk.product.service.MenuService;
@@ -45,14 +46,30 @@ public class MenuApiController {
         return s3UploadService.saveFile(file);
     }
 
+    /* 전체 메뉴 */
     @GetMapping("/api/menus")
-    public List<MenuResponseDto> getAllMenus(@RequestParam(required = false) String keyword) {
+    public List<?> getMenus(@RequestParam(required = false) String keyword,
+                               @RequestParam(required = false) String categoryname,
+                               @RequestParam(required = false) List<Long> id) {
         if(keyword != null) {
             return menuService.getAllByKeyword(keyword);
+        }
+        else if(id != null) {
+            return menuService.getMenusByIds(id);
+        }
+        else if(categoryname != null) {
+            return menuService.getMenusByCategory(categoryname);
         }
         return menuService.getAll();
     }
 
+//    /* 다수의 특정 메뉴*/
+//    @GetMapping("/api/menus")
+//    public List<MenuResponseDto2> getMenus(@RequestParam("id") List<Long> id) {
+//
+//    }
+
+    /* 특정 메뉴 */
     @GetMapping("/api/menus/{id}")
     public ResponseEntity<MenuResponseDto> getMenu(@PathVariable("id") Long id) {
         return menuService.get(id);

@@ -2,6 +2,7 @@ package com.example.responsive_kiosk.product.service;
 
 import com.example.responsive_kiosk.config.service.S3UploadService;
 import com.example.responsive_kiosk.product.dto.MenuResponseDto;
+import com.example.responsive_kiosk.product.dto.MenuResponseDto2;
 import com.example.responsive_kiosk.product.dto.MenuSaveOnGPTRequestDto;
 import com.example.responsive_kiosk.product.dto.MenuSaveRequestDto;
 import com.example.responsive_kiosk.product.dto.MenuUpdateRequestDto;
@@ -11,6 +12,7 @@ import com.example.responsive_kiosk.product.repository.CategoryRepository;
 import com.example.responsive_kiosk.product.repository.MenuRepository;
 import com.example.responsive_kiosk.toFastApi.ToFastApiService;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -69,6 +71,27 @@ public class MenuService {
         List<Menu> menus = menuRepository.findByNameContaining(keyword, Sort.by(Direction.ASC, "Category"));
         for(Menu menu: menus) {
             responseDtoList.add(MenuResponseDto.builder().menu(menu).build());
+        }
+        return responseDtoList;
+    }
+
+    public List<MenuResponseDto2> getMenusByCategory(String categoryName) {
+        Category category = categoryRepository.findByName(categoryName).orElseThrow(EntityNotFoundException::new);
+        List<Menu> menus = menuRepository.findByCategory(category);
+
+        List<MenuResponseDto2> responseDtoList = new ArrayList<>();
+        for(Menu menu: menus) {
+            responseDtoList.add(MenuResponseDto2.builder().menu(menu).build());
+        }
+        return responseDtoList;
+    }
+
+    //MenuResponseDto2: 메뉴 전달할 때 필요한 정보들만 추려봄
+    public List<MenuResponseDto2> getMenusByIds(List<Long> ids) {
+        List<MenuResponseDto2> responseDtoList = new ArrayList<>();
+        for(Long id: ids) {
+            Menu menu = menuRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+            responseDtoList.add(MenuResponseDto2.builder().menu(menu).build());
         }
         return responseDtoList;
     }

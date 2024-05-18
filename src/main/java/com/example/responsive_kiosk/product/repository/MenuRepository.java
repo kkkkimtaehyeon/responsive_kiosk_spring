@@ -1,5 +1,6 @@
 package com.example.responsive_kiosk.product.repository;
 
+import com.example.responsive_kiosk.product.entity.Category;
 import com.example.responsive_kiosk.product.entity.Menu;
 import java.util.List;
 import java.util.Optional;
@@ -10,4 +11,6 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     Optional<Menu> findByName(String name);
     List<Menu> findByNameContaining(String keyword, Sort category);
+
+    List<Menu> findByCategory(Category category);
 }
