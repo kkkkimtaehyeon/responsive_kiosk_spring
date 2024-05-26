@@ -13,7 +13,8 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000"); // 리액트 애플리케이션의 출처
+        config.addAllowedOrigin("http://localhost:3000"); // 리액트
+        config.addAllowedOrigin("http://localhost:8000"); // fast api
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
