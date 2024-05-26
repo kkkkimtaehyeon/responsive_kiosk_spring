@@ -82,7 +82,7 @@ public class MenuApiController {
     }
 
     @DeleteMapping("/api/menus/{id}")
-    public void deleteMenu(@PathVariable("id") Long id) {
+    public void deleteMenu(@PathVariable("id") Long id) throws IOException {
         menuService.delete(id);
     }
 

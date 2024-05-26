@@ -13,11 +13,9 @@ import com.example.responsive_kiosk.product.repository.MenuRepository;
 import com.example.responsive_kiosk.toFastApi.ToFastApiService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.domain.Sort;
@@ -25,7 +23,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @DynamicUpdate
@@ -111,9 +108,20 @@ public class MenuService {
         return ResponseEntity.ok(menu.getId());
     }
 
-    public void delete(Long id) {
+    @Transactional
+    public ResponseEntity<String> delete(Long id) throws IOException {
         Menu menu = menuRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("menu not found"));
-        menuRepository.delete(menu);
+        try {
+            menuRepository.delete(menu);
+            ResponseEntity<String> response = toFastApiService.deleteMenuOnGPT(id);
+
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new IOException("Failed to delete menu", e);
+
+        }
+        //return ResponseEntity.status(HttpStatus.SC_UNPROCESSABLE_ENTITY).body(String.valueOf(id));
     }
 
 }
