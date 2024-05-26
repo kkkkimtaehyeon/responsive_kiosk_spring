@@ -12,7 +12,7 @@ public class MenuResponseDto {
     String name;
     Double price;
     String description;
-    String category;
+    String categoryName;
 
     @Builder
     public MenuResponseDto(Menu menu) {
@@ -21,7 +21,7 @@ public class MenuResponseDto {
         this.name = menu.getName();
         this.price = menu.getPrice();
         this.description = menu.getDescription();
-        this.category = menu.getCategory().getName();
+        this.categoryName = menu.getCategory().getName();
     }
 
 }

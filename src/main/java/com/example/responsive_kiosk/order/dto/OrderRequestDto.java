@@ -15,5 +15,5 @@ public class OrderRequestDto {
         this.takeout = takeout;
         this.totalPrice = totalPrice;
         this.orderDetailRequestDtoList = orderDetailRequestDtoList;
-    };
+    }
 }
