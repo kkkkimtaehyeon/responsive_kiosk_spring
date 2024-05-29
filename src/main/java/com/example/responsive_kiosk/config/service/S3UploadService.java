@@ -32,7 +32,18 @@ public class S3UploadService {
             e.printStackTrace();
             return "image  upload failed";
         }
+    }
 
+    public void deleteFile(String url) {
+        String key = extractKeyname(url);
 
+        boolean isExist = amazonS3.doesObjectExist(bucket, key);
+        if(isExist) {
+            amazonS3.deleteObject(bucket, key);
+        }
+    }
+
+    public String extractKeyname(String url) {
+        return url.split(".2.amazonaws.com/")[1];
     }
 }

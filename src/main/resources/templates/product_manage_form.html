@@ -131,7 +131,7 @@
                     let tmp = '';
                     response.data.forEach(menu => {
                         tmp += '<tr>\n' +
-                            `<td>${menu.category}</td>\n`+
+                            `<td>${menu.categoryName}</td>\n`+
                             `<td onclick="productDetail(${menu.id})">${menu.name}</td>\n` +
                             '</tr>'
                     })
@@ -151,7 +151,7 @@
                     let tmp = '';
                     response.data.forEach(menu => {
                         tmp += '<tr>\n' +
-                            `<td>${menu.category}</td>\n` +
+                            `<td>${menu.categoryName}</td>\n` +
                             `<td onclick="productDetail(${menu.id})">${menu.name}</td>\n` +
                             '</tr>'
                     })
@@ -186,7 +186,7 @@
                 .then(response => {
                     console.log("조회 성공" + response);
                     const menu = response.data;
-                    document.getElementById('detail-category').innerText = menu.category;
+                    document.getElementById('detail-category').innerText = menu.categoryName;
                     document.getElementById('detail-name').innerText = menu.name;
                     document.getElementById('detail-price').innerText = menu.price;
                     document.getElementById('detail-description').innerText = menu.description;

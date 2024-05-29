@@ -14,6 +14,7 @@ import com.example.responsive_kiosk.toFastApi.ToFastApiService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @DynamicUpdate
+@Transactional
 @Service
 public class MenuService {
     private final MenuRepository menuRepository;
@@ -33,20 +35,18 @@ public class MenuService {
     private final S3UploadService s3UploadService;
     private final ToFastApiService toFastApiService;
 
-    @Transactional
+    @Transactional(rollbackFor = { ConnectException.class })
     public ResponseEntity<Long> save(MenuSaveRequestDto requestDto) throws IOException {
-        Category category = categoryRepository.findByName(requestDto.getCategoryName()).orElseThrow(EntityExistsException::new);
-        String imagePath = s3UploadService.saveFile(requestDto.getImageFile());
-
-        Menu menu = requestDto.toEntity(category, imagePath);
         Long savedMenuId;
         try {
-            // 트랜잭션 시작
+            Category category = categoryRepository.findByName(requestDto.getCategoryName()).orElseThrow(EntityExistsException::new);
+            String imagePath = s3UploadService.saveFile(requestDto.getImageFile());
+
+            Menu menu = requestDto.toEntity(category, imagePath);
             savedMenuId = menuRepository.save(menu).getId();
             //fastapi 서버에 있는 GPT에 메뉴 학습을 위해 MenuSaveOnGPTRequestDto 전달
             toFastApiService.registerMenuOnGPT(new MenuSaveOnGPTRequestDto(menu));
         } catch (Exception e) {
-            // 롤백
             savedMenuId = null;
             throw e; // 예외 다시 던지기
         }
@@ -108,10 +108,11 @@ public class MenuService {
         return ResponseEntity.ok(menu.getId());
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { Exception.class })
     public ResponseEntity<String> delete(Long id) throws IOException {
-        Menu menu = menuRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("menu not found"));
         try {
+            Menu menu = menuRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("menu not found"));
+            s3UploadService.deleteFile(menu.getImagePath());
             menuRepository.delete(menu);
             ResponseEntity<String> response = toFastApiService.deleteMenuOnGPT(id);
 
