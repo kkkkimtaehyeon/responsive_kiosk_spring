@@ -13,8 +13,8 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000"); // 리액트
-        config.addAllowedOrigin("http://localhost:8000"); // fast api
+        config.addAllowedOrigin("https://master--responsive-kiosk.netlify.app"); // 리액트
+        config.addAllowedOrigin("https://responsivekiosk.store"); // fast api
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
