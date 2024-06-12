@@ -42,7 +42,10 @@ public class MenuService {
             Category category = categoryRepository.findByName(requestDto.getCategoryName()).orElseThrow(EntityExistsException::new);
             String imagePath = s3UploadService.saveFile(requestDto.getImageFile());
 
-            Menu menu = requestDto.toEntity(category, imagePath);
+            requestDto.setCategory(category);
+            requestDto.setImagePath(imagePath);
+
+            Menu menu = requestDto.toEntity();
             savedMenuId = menuRepository.save(menu).getId();
             //fastapi 서버에 있는 GPT에 메뉴 학습을 위해 MenuSaveOnGPTRequestDto 전달
             toFastApiService.registerMenuOnGPT(new MenuSaveOnGPTRequestDto(menu));
@@ -100,10 +103,15 @@ public class MenuService {
     }
 
     @Transactional
-    public ResponseEntity<Long> update(Long id, MenuUpdateRequestDto requestDto) {
+    public ResponseEntity<Long> update(Long id, MenuUpdateRequestDto requestDto) throws IOException {
         Menu menu = menuRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("menu not found"));
-        //Category category = categoryRepository.findById(requestDto.getCategoryId()).orElseThrow(() -> new IllegalArgumentException("category not found"));
-        //requestDto.setCategory(category);
+        String imagePath;
+        if(!requestDto.getImageFile().isEmpty()) {
+            imagePath = s3UploadService.saveFile(requestDto.getImageFile());
+        } else {
+            imagePath = menu.getImagePath();
+        }
+        requestDto.setImagePath(imagePath);
         menu.update(requestDto);
         return ResponseEntity.ok(menu.getId());
     }

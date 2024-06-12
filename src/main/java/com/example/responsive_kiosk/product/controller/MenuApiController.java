@@ -78,7 +78,6 @@ public class MenuApiController {
     @PutMapping("/api/menus/{id}")
     public void updateMenu(@PathVariable("id") Long id, MenuUpdateRequestDto requestDto, HttpServletResponse response) throws IOException {
         menuService.update(id, requestDto);
-        response.sendRedirect("/manage/products");
     }
 
     @DeleteMapping("/api/menus/{id}")

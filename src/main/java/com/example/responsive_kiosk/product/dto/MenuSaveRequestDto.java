@@ -16,20 +16,24 @@ public class MenuSaveRequestDto {
 
     @JsonIgnore
     MultipartFile imageFile;
+    String imagePath;
     String name;
     Double price;
     String description;
+    Category category;
     String categoryName;
 
     @Builder
-    public MenuSaveRequestDto(MultipartFile imageFile, String name, double price, String categoryName) {
+    public MenuSaveRequestDto(MultipartFile imageFile, String imagePath, String name, double price, Category category, String categoryName) {
         this.imageFile = imageFile;
+        this.imagePath = imagePath;
         this.name = name;
         this.price = price;
+        this.category = category;
         this.categoryName = categoryName;
     }
 
-    public Menu toEntity(Category category, String imagePath) {
+    public Menu toEntity() {
         return Menu.builder()
                 .imagePath(imagePath)
                 .name(name)

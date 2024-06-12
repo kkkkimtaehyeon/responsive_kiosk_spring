@@ -28,6 +28,36 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col m-3 card">
+                    <!-- 카테고리 목록 -->
+                    <div class="card-header">
+                        <h5>카테고리 목록</h5>
+                    </div>
+                    <div class="card-body">
+                        <label>카테고리 등록</label>
+                        <input type="text" class="d-flex form-control" id="createCategoryName" name="name" placeholder="카테고리명을 입력하세요.">
+                        <button class="btn btn-primary" onclick="createCategory()">등록</button>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>카테고리명</th>
+                            </tr>
+                            </thead>
+                            <tbody id="categoryContainer">
+
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <div class="d-flex justify-content-between">-->
+<!--                                        커피-->
+<!--                                        <button class="btn btn-primary">삭제</button>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
                 <!-- 상품 목록 -->
                 <div class="col m-3 card">
                     <div class="card-header">
@@ -111,16 +141,67 @@
     <script>
 
         const editBtn = document.getElementById('editBtn');
-        const createBtn = document.getElementById('createBtn');
         const deleteBtn = document.getElementById('deleteBtn');
-        const productCreate = document.getElementById('product-create');
-        const productEdit = document.getElementById('product-edit');
         const productInfo = document.getElementById('product-info');
         const searchBtn = document.getElementById('searchBtn');
 
 
         window.onload = () => {
             getProducts();
+            getCategories();
+        }
+
+        function createCategory() {
+            const category = document.getElementById('createCategoryName').value;
+            axios.post(`/api/categories?name=${category}`)
+                .then(response => {
+                    console.log(`카테고리 ${category} 등록 성공`, response);
+                    window.location.reload();
+                })
+                .catch(error => { // .catch로 오류 핸들링
+                    console.log(`카테고리 ${category} 등록 실패`, error);
+                });
+        }
+
+
+        function deleteCategory(id) {
+            axios.delete(`/api/categories/${id}`)
+                .then(response => {
+                    alert('카테고리가 삭제되었습니다!');
+                    console.log('카테고리 삭제 성공!', response);
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.log('카테고리 삭제 에러!', error);
+                })
+        }
+
+        function getCategories() {
+            const categoryContainer = document.getElementById('categoryContainer');
+            let tempContainer = '';
+            axios.get('/api/categories')
+                .then(response => {
+                    response.data.forEach(category => {
+                        tempContainer +=
+                            `
+                            <tr>
+                                <td>
+                                    <div class="d-flex justify-content-between">
+                                        ${category.name}
+                                        <button
+                                        class="btn btn-primary"
+                                        onclick="deleteCategory(${category.id})"
+                                        >삭제</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            `;
+                    })
+                    categoryContainer.innerHTML = tempContainer;
+                })
+                .catch(error => {
+                    console.log('카테고리 불러오기 에러!', error);
+                })
         }
 
         function getProducts() {

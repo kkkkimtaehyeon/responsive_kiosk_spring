@@ -6,6 +6,7 @@ import com.example.responsive_kiosk.product.service.CategoryService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,9 @@ public class CategoryApiController {
 
     private final CategoryService categoryService;
     @PostMapping("/api/categories")
-    public ResponseEntity<Long> saveCategory(CategorySaveRequestDto requestDto) {
-        return categoryService.save(requestDto);
+
+    public ResponseEntity<Long> saveCategory(@RequestParam("name") String categoryName) {
+        return categoryService.save(categoryName);
     }
 
     @GetMapping("/api/categories")
@@ -31,6 +33,11 @@ public class CategoryApiController {
     @PutMapping("/api/categories/{id}")
     public void updateCategory(@PathVariable("id") Long id, @RequestParam String name) {
         categoryService.update(id, name);
+    }
+
+    @DeleteMapping("/api/categories/{id}")
+    public void deleteCategory(@PathVariable("id") Long id) {
+        categoryService.delete(id);
     }
 
 

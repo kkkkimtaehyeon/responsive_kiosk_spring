@@ -57,6 +57,5 @@ public class Menu {
         this.name = requestDto.getName();
         this.price = requestDto.getPrice();
         this.description = requestDto.getDescription();
-        this.category = requestDto.getCategory();
     }
 }

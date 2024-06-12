@@ -16,7 +16,7 @@
         <div class="card-header d-flex justify-content-between">
             <h4>상품 수정</h4>
             <div class="d-flex justify-content-end">
-                <a href="/manage/product" class="btn btn-danger">취소</a>
+                <a href="/manage/products" class="btn btn-danger">취소</a>
                 <button class="btn btn-primary" id="edit-submitBtn">수정</button>
             </div>
 
@@ -24,19 +24,10 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-3">
-                    <!--<img th:src="" class="img-thumbnail" alt="...">-->
+                    <img th:src="${menu.body.imagePath}" class="img-thumbnail" alt="...">
+                    <input type="file" id="image" name="imageFile"/>
                 </div>
                 <div class="col-6">
-                    <div class="row-auto">
-                        <label>카테고리</label>
-                        <select id="edit-category" th:value="${menu.body.category}" name="category">
-                            <option value="1">커피</option>
-                            <option value="2">논커피</option>
-                            <option value="3">주스</option>
-                            <option value="4">차</option>
-                            <option value="5">디저트</option>
-                        </select>
-                    </div>
                     <div class="row-auto">
                         <label>이름</label>
                         <input class="form-control" id="edit-name" th:value="${menu.body.name}" name="name">
@@ -44,19 +35,6 @@
                     <div class="row-auto">
                         <label>가격</label>
                         <input class="form-control" id="edit-price" th:value="${menu.body.price}" name="price">
-                    </div>
-                    <div class="row-auto">
-                        <label>옵션</label>
-                        <div id="edit-options">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox3">핫</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option2">
-                                <label class="form-check-label" for="inlineCheckbox4">아이스</label>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
 
@@ -79,7 +57,8 @@
 <script th:inline="javascript">
 
     const editBtn = document.getElementById('edit-submitBtn');
-    editBtn.addEventListener('click', async () => { // async 키워드 추가
+    editBtn.addEventListener('click', async (event) => { // async 키워드 추가
+        event.preventDefault();
         const id = [[${menu.body.id}]];
         await update(id); // await 키워드 추가
     })
@@ -90,7 +69,7 @@
             const response = await axios.put(`/api/menus/${id}`, formdata);
             console.log('수정 성공!' + response);
             alert('변경사항이 적용됐습니다!');
-            window.location.href='/manage/product';
+            window.location.href='/manage/products';
         } catch (error) {
             console.log('수정 실패!' + error);
         }

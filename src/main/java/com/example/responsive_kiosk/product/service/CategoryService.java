@@ -15,8 +15,9 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public ResponseEntity<Long> save(CategorySaveRequestDto requestDto) {
-        return ResponseEntity.ok(categoryRepository.save(requestDto.toEntity()).getId());
+    public ResponseEntity<Long> save(String categoryName) {
+        Category category = Category.builder().name(categoryName).build();
+        return ResponseEntity.ok(categoryRepository.save(category).getId());
     }
 
     public List<Category> getAll() {
@@ -27,5 +28,10 @@ public class CategoryService {
     public void update(Long id, String name) {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("category not found"));
         category.update(name);
+    }
+
+    public void delete(Long id) {
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("category not found"));
+        categoryRepository.delete(category);
     }
 }
