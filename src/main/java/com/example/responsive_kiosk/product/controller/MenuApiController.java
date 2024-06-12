@@ -10,6 +10,8 @@ import com.example.responsive_kiosk.toFastApi.ToFastApiController;
 import com.example.responsive_kiosk.toFastApi.ToFastApiService;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +52,7 @@ public class MenuApiController {
     @GetMapping("/api/menus")
     public List<?> getMenus(@RequestParam(required = false) String keyword,
                                @RequestParam(required = false) String categoryname,
-                               @RequestParam(required = false) List<Long> id) {
+                               @RequestParam(required = false) List<Long> id) throws UnsupportedEncodingException {
         if(keyword != null) {
             return menuService.getAllByKeyword(keyword);
         }
