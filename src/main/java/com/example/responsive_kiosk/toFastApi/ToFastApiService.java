@@ -9,19 +9,19 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ToFastApiService {
 
-    String tempPort = "13.124.136.84";
+    String tempPort = "https://responsivekiosk.store";
 
     public ResponseEntity<String> registerMenuOnGPT(MenuSaveOnGPTRequestDto requestDto) {
 
         RestTemplate restTemplate = new RestTemplate();
         //RestTemplate은 기본적으로 formdata 전송
-        ResponseEntity<String> registered = restTemplate.postForEntity("http://"+tempPort+"/fast/api/menus", requestDto, String.class);
+        ResponseEntity<String> registered = restTemplate.postForEntity(tempPort+"/fast/api/menus", requestDto, String.class);
         return registered;
     }
 
     public ResponseEntity<String> deleteMenuOnGPT(Long menuId) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://"+tempPort+"/fast/api/menus/" + menuId;
+        String url = tempPort+"/fast/api/menus/" + menuId;
         restTemplate.delete(url);
 
         return ResponseEntity.ok("menu id: "+ menuId+ "successfully deleted");
